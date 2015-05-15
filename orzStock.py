@@ -30,6 +30,7 @@ sps={
     "sz":"总市值",
     "hs":"换手率",
     "is":"unknow",
+    "bp1":"停牌",
     "zf":"涨幅"
     };
 diss={
@@ -57,7 +58,7 @@ tmplNotice="!!!!!!!!!na:la(zf%)(lo:hi)*num*!!!!!!!";
 #dRule='float(data["zf"])<9.95';
 rurl="";
 def getStockInfo():
-    #print("----------getStock------------");
+    print("----------getStock------------");
     
     #print(rurl);
     response= urllib.request.urlopen(rurl);
@@ -75,6 +76,8 @@ def getStockInfo():
     for stock in obj:
         tstock=obj[stock];
         if "la" in tstock:
+            if float(tstock["pc"])<=0:
+                continue;
             percent=100*(float(tstock["la"])-float(tstock["pc"]))/float(tstock["pc"]);
             tstock["num"]=stock.split(".")[0];
             tstock["zf"]="%.2f"%percent;
