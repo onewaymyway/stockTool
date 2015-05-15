@@ -79,12 +79,13 @@ def checkNotice():
                 pass;
             else:
                 print(adptStr(wNotice,tstock))
-                notice();
+                notice(adptStr(wNoticeMsg,tstock));
             rNotice[nUrl]=tstock;
             
 
 rNotice={}
 wNotice="---code----\n title \n url";
+wNoticeMsg="code有新公告,title";
 mStock=Stocks();
 
 def mainLoop():

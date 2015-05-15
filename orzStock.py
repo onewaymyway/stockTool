@@ -55,7 +55,9 @@ diss={
 
 tmpl="**na:la(zf%)(lo:hi)*num*";
 tmplNotice="!!!!!!!!!na:la(zf%)(lo:hi)*num*!!!!!!!";
+tmplNoticeMsg="na股价超过区间,涨幅zf";
 tmplNNotice="xx!!!!!!!na:la(zf%)(lo:hi)*num*!!!!!xx";
+tmplNNoticeMsg="na股价突破,涨幅zf";
 #dRule='float(data["zf"])<9.95';
 rurl="";
 def getStockInfo():
@@ -76,6 +78,8 @@ def getStockInfo():
     ##print(obj);
     for stock in obj:
         tstock=obj[stock];
+        if "bp1" in tstock:
+            continue;
         if "la" in tstock:
             if float(tstock["pc"])<=0:
                 continue;
@@ -97,6 +101,8 @@ def adptJSon(data):
 
 def printAStock(data,num):
     ##print(data);
+    if float(data["hi"])==0:
+        return;
     hookStock(data);
     print(adptStr(tmpl,data));
     return
@@ -114,14 +120,15 @@ def hookStock(data):
     code=data["num"];
     if data["hi"]==data["la"] or data["lo"]==data["la"]:
         if code in prePrice and prePrice[code]!=data["la"]:
-            notice();
+            
+            notice(adptStr(tmplNNoticeMsg,data));
             print(adptStr(tmplNNotice,data));
         
         
     prePrice[code]=data["la"];
     if code in mStock.rules:
         if eval(mStock.rules[code]):
-            notice();
+            notice(adptStr(tmplNoticeMsg,data));
             print(adptStr(tmplNotice,data));
     return
     if float(data["zf"])<9.95 :
