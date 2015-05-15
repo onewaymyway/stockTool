@@ -3,7 +3,7 @@
 603718,float(data["zf"])<9.95
 603989,float(data["zf"])<9.95
 603227,float(data["zf"])<9.95
-600701,float(data["la"])<9.95
+600701
 600293,float(data["zf"])<9.95 and 1==1
 600438
 600137
