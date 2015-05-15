@@ -1,11 +1,10 @@
 import winsound
 import os
-def speak(msg):
-    cmd="speaker.exe "+msg;
-    os.popen(cmd)
+from libs.PySpeaker import speak
+
     
 def notice(msg="警告"):
-    #winsound.PlaySound('ALARM1', winsound.SND_ASYNC);
+    winsound.PlaySound('ALARM1', winsound.SND_ASYNC);
     speak(msg)
 
 def adptStr(tstr,data):
