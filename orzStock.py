@@ -55,6 +55,7 @@ diss={
 
 tmpl="**na:la(zf%)(lo:hi)*num*";
 tmplNotice="!!!!!!!!!na:la(zf%)(lo:hi)*num*!!!!!!!";
+tmplNNotice="xx!!!!!!!na:la(zf%)(lo:hi)*num*!!!!!xx";
 #dRule='float(data["zf"])<9.95';
 rurl="";
 def getStockInfo():
@@ -111,6 +112,13 @@ def printAStock(data,num):
 def hookStock(data):
     #print(eval('float(data["zf"])<9.95'));
     code=data["num"];
+    if data["hi"]==data["la"] or data["lo"]==data["la"]:
+        if code in prePrice and prePrice[code]!=data["la"]:
+            notice();
+            print(adptStr(tmplNNotice,data));
+        
+        
+    prePrice[code]=data["la"];
     if code in mStock.rules:
         if eval(mStock.rules[code]):
             notice();
@@ -140,7 +148,7 @@ def mainLoop():
             print(e);
             time.sleep(5);
         
-        
+prePrice={};
 mStock=Stocks();
 rurl=url+",".join(mStock.stocksA);
 

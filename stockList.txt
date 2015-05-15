@@ -9,5 +9,9 @@
 600137
 601766
 601299
-601618,float(data["zf"])>1 or float(data["zf"])<-1
-002715,float(data["zf"])>5 or float(data["zf"])<4
+601618,float(data["zf"])>2 or float(data["zf"])<-1
+002715,float(data["zf"])>6 or float(data["zf"])<4
+300431,float(data["zf"])>6 or float(data["zf"])<-4
+600028,float(data["zf"])>6 or float(data["zf"])<-4
+600118,float(data["zf"])>9 or float(data["zf"])<-4
+601390,float(data["zf"])>9 or float(data["zf"])<-4
