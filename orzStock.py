@@ -143,4 +143,7 @@ def mainLoop():
         
 mStock=Stocks();
 rurl=url+",".join(mStock.stocksA);
-mainLoop();
+
+
+if __name__ == '__main__':
+    mainLoop()

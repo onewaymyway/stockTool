@@ -98,5 +98,5 @@ def mainLoop():
             print(e);
             time.sleep(5);
 
-
-mainLoop();
+if __name__ == '__main__':
+    mainLoop()
