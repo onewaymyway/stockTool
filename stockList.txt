@@ -15,3 +15,4 @@
 600028,float(data["zf"])>6 or float(data["zf"])<-4
 600118,float(data["zf"])>9 or float(data["zf"])<-4
 601390,float(data["zf"])>9 or float(data["zf"])<-4
+002230,float(data["zf"])>9 or float(data["zf"])<-4
