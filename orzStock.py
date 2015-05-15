@@ -143,7 +143,7 @@ def hookStock(data):
 
     
 def mainLoop():
-    
+    global mStock
 
 
 

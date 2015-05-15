@@ -1,6 +1,6 @@
 
 
-dRule='float(data["zf"])<9.95';
+dRule='float(data["zf"])>10 or float(data["zf"])<-9';
 def getStockList(fileName):
     rules={};
     stocks=[];
