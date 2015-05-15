@@ -4,14 +4,16 @@ import socket
 import json
 import winsound
 
+from toolfuns import *
+
+from myStock import Stocks
+
+
 socket.setdefaulttimeout(8.0)
 
 url="http://bdcjhq.hexun.com/quote?s2=";
 
-stockso=[
-    ];
-stocks=[
-    ];
+
 sps={
     "na":"名称",
     "pc":"昨收盘",
@@ -48,15 +50,15 @@ diss={
     "num":"代码"
     };
 
-rules={}
+#rules={}
 
 tmpl="**na:la(zf%)(lo:hi)*num*";
 tmplNotice="!!!!!!!!!na:la(zf%)(lo:hi)*num*!!!!!!!";
-dRule='float(data["zf"])<9.95';
-
+#dRule='float(data["zf"])<9.95';
+rurl="";
 def getStockInfo():
-    print("----------getStock------------");
-    rurl=url+",".join(stocks);
+    #print("----------getStock------------");
+    
     #print(rurl);
     response= urllib.request.urlopen(rurl);
     data=response.read().decode('gbk');
@@ -88,10 +90,6 @@ def adptJSon(data):
         data=data.replace(kk,'"'+kk+'"');
     return data;
 
-def adptStr(tstr,data):
-    for kk in data:
-        tstr=tstr.replace(kk,data[kk]);
-    return tstr;
 
 def printAStock(data,num):
     ##print(data);
@@ -110,8 +108,8 @@ def printAStock(data,num):
 def hookStock(data):
     #print(eval('float(data["zf"])<9.95'));
     code=data["num"];
-    if code in rules:
-        if eval(rules[code]):
+    if code in mStock.rules:
+        if eval(mStock.rules[code]):
             notice();
             print(adptStr(tmplNotice,data));
     return
@@ -122,43 +120,14 @@ def hookStock(data):
     pass
 
 
-codeType={
-    "6":"sh",
-    "0":"sz",
-    "3":"sz"
-    }
-def adptStockCode(code):
-    return code+"."+codeType[code[0]];
 
-def getStocks(stockList):
-    rst=[];
-    for stock in stockList:
-        rst.append(adptStockCode(stock));
-    return rst;
 
-def getStockList():
-    rst=[];
-    f=open("stockList.txt","r",encoding="utf-8");
-    for line in f.readlines():
-        line=line.strip();
-        cr=line.split(",");
-        code=cr[0];
-        if len(cr)>1:
-            trule=cr[1];
-        else:
-            trule=dRule;
-        rules[code]=trule;
-        rst.append(code);
-    return rst;
 
-def notice():
-    winsound.PlaySound('ALARM1', winsound.SND_ASYNC);
     
 def mainLoop():
-    global stocks
-    global stockso
-    stockso=getStockList();
-    stocks=getStocks(stockso);
+
+
+
     #getStockInfo();
     while(1):
         try:
@@ -169,5 +138,6 @@ def mainLoop():
             time.sleep(5);
         
         
-
+mStock=Stocks();
+rurl=url+",".join(mStock.stocksA);
 mainLoop();
