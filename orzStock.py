@@ -9,7 +9,7 @@ socket.setdefaulttimeout(8.0)
 url="http://bdcjhq.hexun.com/quote?s2=";
 
 stockso=[
-    ]
+    ];
 stocks=[
     ];
 sps={
@@ -48,8 +48,12 @@ diss={
     "num":"代码"
     };
 
+rules={}
+
 tmpl="**na:la(zf%)(lo:hi)*num*";
 tmplNotice="!!!!!!!!!na:la(zf%)(lo:hi)*num*!!!!!!!";
+dRule='float(data["zf"])<9.95';
+
 def getStockInfo():
     print("----------getStock------------");
     rurl=url+",".join(stocks);
@@ -70,7 +74,7 @@ def getStockInfo():
         tstock=obj[stock];
         if "la" in tstock:
             percent=100*(float(tstock["la"])-float(tstock["pc"]))/float(tstock["pc"]);
-            tstock["num"]=stock;
+            tstock["num"]=stock.split(".")[0];
             tstock["zf"]="%.2f"%percent;
             printAStock(tstock,stock);
         
@@ -104,6 +108,13 @@ def printAStock(data,num):
     print(",".join(disarr))
 
 def hookStock(data):
+    #print(eval('float(data["zf"])<9.95'));
+    code=data["num"];
+    if code in rules:
+        if eval(rules[code]):
+            notice();
+            print(adptStr(tmplNotice,data));
+    return
     if float(data["zf"])<9.95 :
         notice();
         print(adptStr(tmplNotice,data));
@@ -130,7 +141,14 @@ def getStockList():
     f=open("stockList.txt","r",encoding="utf-8");
     for line in f.readlines():
         line=line.strip();
-        rst.append(line);
+        cr=line.split(",");
+        code=cr[0];
+        if len(cr)>1:
+            trule=cr[1];
+        else:
+            trule=dRule;
+        rules[code]=trule;
+        rst.append(code);
     return rst;
 
 def notice():
