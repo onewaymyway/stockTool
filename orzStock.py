@@ -136,12 +136,15 @@ def hookStock(data):
 
     
 def mainLoop():
+    
 
 
 
     #getStockInfo();
     while(1):
         try:
+            mStock=Stocks();
+            rurl=url+",".join(mStock.stocksA);
             getStockInfo();
             time.sleep(5);
         except Exception as e:
