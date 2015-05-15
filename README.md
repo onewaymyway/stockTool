@@ -1,6 +1,7 @@
 #stockTools
 
 股票相关的小工具
+带语音播报，需要安装window语音合成，win7以上自带
 
 stockList.txt 要监控的股票列表
 格式：
@@ -33,3 +34,9 @@ sps={
 
 orzStock.py 监控股票现价
 orzNotice.py 监控是否有新公告
+
+myStock.py 获取关注的股票的类
+toolfuns.py 一些常用工具封装
+
+speaker.exe 语音合成接口程序
+testSpeaker.bat 语音合成测试
