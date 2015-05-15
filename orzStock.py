@@ -2,27 +2,15 @@ import urllib.request,time
 import re
 import socket
 import json
+import winsound
 
 socket.setdefaulttimeout(8.0)
 
 url="http://bdcjhq.hexun.com/quote?s2=";
 
+stockso=[
+    ]
 stocks=[
-    "000001.sh",
-    "601989.sh",
-    "601390.sh",
-    "601500.sh",
-    "600139.sh",
-    "603318.sh",
-    "600193.sh",
-    "600528.sh",
-    "600859.sh",
-    "600368.sh",
-    "600975.sh",
-    "600641.sh",
-    "600275.sh",
-    "600137.sh",
-    "600112.sh"
     ];
 sps={
     "na":"名称",
@@ -60,10 +48,12 @@ diss={
     "num":"代码"
     };
 
-tmpl="**na:la(zf)(lo:hi)*num*";
+tmpl="**na:la(zf%)(lo:hi)*num*";
+tmplNotice="!!!!!!!!!na:la(zf%)(lo:hi)*num*!!!!!!!";
 def getStockInfo():
     print("----------getStock------------");
     rurl=url+",".join(stocks);
+    #print(rurl);
     response= urllib.request.urlopen(rurl);
     data=response.read().decode('gbk');
     ##print(data);
@@ -71,6 +61,7 @@ def getStockInfo():
     msp=p.findall(data);
     ##print(msp);
     objs=msp[0];
+    objs=objs.replace(".sz",".深圳");
     objs=adptJSon(objs);
     ##print(objs);
     obj=json.loads(objs);
@@ -80,7 +71,7 @@ def getStockInfo():
         if "la" in tstock:
             percent=100*(float(tstock["la"])-float(tstock["pc"]))/float(tstock["pc"]);
             tstock["num"]=stock;
-            tstock["zf"]="%.2f"%percent+"%";
+            tstock["zf"]="%.2f"%percent;
             printAStock(tstock,stock);
         
         
@@ -113,9 +104,44 @@ def printAStock(data,num):
     print(",".join(disarr))
 
 def hookStock(data):
+    if float(data["zf"])<9.95 :
+        notice();
+        print(adptStr(tmplNotice,data));
+        
     pass
 
+
+codeType={
+    "6":"sh",
+    "0":"sz",
+    "3":"sz"
+    }
+def adptStockCode(code):
+    return code+"."+codeType[code[0]];
+
+def getStocks(stockList):
+    rst=[];
+    for stock in stockList:
+        rst.append(adptStockCode(stock));
+    return rst;
+
+def getStockList():
+    rst=[];
+    f=open("stockList.txt","r",encoding="utf-8");
+    for line in f.readlines():
+        line=line.strip();
+        rst.append(line);
+    return rst;
+
+def notice():
+    winsound.PlaySound('ALARM1', winsound.SND_ASYNC);
+    
 def mainLoop():
+    global stocks
+    global stockso
+    stockso=getStockList();
+    stocks=getStocks(stockso);
+    #getStockInfo();
     while(1):
         try:
             getStockInfo();
