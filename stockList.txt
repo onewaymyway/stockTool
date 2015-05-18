@@ -9,11 +9,12 @@
 600137,float(data["zf"])<9.95
 601766,float(data["zf"])<9.95
 601299,float(data["zf"])<9.95
-601618,float(data["zf"])>2 or float(data["zf"])<-1
+601618,float(data["zf"])>3 or float(data["zf"])<-3
 002715,float(data["zf"])>10 or float(data["zf"])<4
-300431,float(data["zf"])>6 or float(data["zf"])<-8
+300431,float(data["zf"])>10 or float(data["zf"])<8
 600028,float(data["zf"])>6 or float(data["zf"])<-8
 600118,float(data["zf"])>10 or float(data["zf"])<-4
 601390,float(data["zf"])>10 or float(data["zf"])<-4
 002230,float(data["zf"])>10 or float(data["zf"])<-4
-601799
+002480
+601600
