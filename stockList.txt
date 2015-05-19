@@ -5,16 +5,16 @@
 603227,float(data["zf"])<9.95
 600701,float(data["zf"])<9.95
 600293,float(data["zf"])<9.95 and 1==1
-600438,float(data["zf"])<9.95
 600137,float(data["zf"])<9.95
 601766,float(data["zf"])<9.95
 601299,float(data["zf"])<9.95
-601618,float(data["zf"])>3 or float(data["zf"])<-3
-002715,float(data["zf"])>10 or float(data["zf"])<4
-300431,float(data["zf"])>10 or float(data["zf"])<8
+601618,float(data["zf"])>3 or float(data["zf"])<-4
+002715,float(data["zf"])>10 or float(data["zf"])<-4
+300431,float(data["zf"])>10 or float(data["zf"])<1
 600028,float(data["zf"])>6 or float(data["zf"])<-8
-600118,float(data["zf"])>10 or float(data["zf"])<-4
-601390,float(data["zf"])>10 or float(data["zf"])<-4
+600118,float(data["zf"])>10 or float(data["zf"])<-8
+601390,float(data["zf"])>10 or float(data["zf"])<-5
 002230,float(data["zf"])>10 or float(data["zf"])<-4
 002480
 601600
+000916
